@@ -5,7 +5,6 @@ TO-FIX:
     - Re-factor code
     - Add loading component
     - Add styling
-    - Push to GH
 */
 
 const button = document.querySelector("input[type=button]");
