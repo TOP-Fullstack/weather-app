@@ -1,43 +1,42 @@
 /* 
-TO-FIX:
-    - Search input is sending form data when the user presses enter
-    - Re-factor code
-    - Add loading component
-    - Add styling
+TO-DO:
+- Get the date and put that underneath forecast days
+- Get fontawesome working
+- Get the current weather stats up
+- Add buffering icon
+- Change DOM object names: instead of dayOne, etc, make an object named dayone, name properties img,temp,day
+- Make responsive
+- Change the background when the user changes city
+- Don't call api until the search field hasn't been typed in for one second
+- Add country code next to search input so user has confirmation they're getting results from the right place
+- Re-work logic inside api call
 */
 
+import displayWeather from "./displayWeather.js";
+
 const API = "a09d512a39043844e89ca915cb124b97";
-const button = document.querySelector("input[type=button]");
+let searchValue = document.querySelector("input[type='text']");
 
 async function getWeather(searchvalue) {
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${searchvalue}&appid=${API}`;
-  const response = await fetch(url);
-  const test = await response.json();
-  console.log(test);
-  const obj = parseJSONIntoObj(test);
+  const currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchvalue}&appid=${API}`;
+  let response = await fetch(currentURL);
+  const current = await response.json();
+  if (current.cod != "404") {
+    const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${current.coord.lat}&lon=${current.coord.lon}&appid=${API}`;
+    response = await fetch(forecastURL);
+    const forecast = await response.json();
+    if (forecast.cod != "404") {
+      displayWeather(current, forecast);
+      console.log(current);
+      // dt_txt (date)
+    }
+  }
 }
 
-function parseJSONIntoObj(json) {
-  const obj = {};
-  obj.name = json.name;
-  obj.lat = json.coord.lat;
-  obj.lon = json.coord.lon;
-  obj.temp = json.main.temp;
-  obj.feels_like = json.main.feels_like;
-  obj.country = json.sys.country;
-  obj.sunrise = json.sys.sunrise;
-  obj.sunset = json.sys.sunset;
-  obj.weather = json.weather[0].main;
-  obj.weather_description = json.weather[0].description;
-  obj.wind = json.wind.speed;
-  return obj;
-}
-
-function displayWeather(obj) {}
-
-button.addEventListener("click", () => {
-  const search = document.querySelector("input[type=text]").value;
-  getWeather(search);
+searchValue.addEventListener("input", (e) => {
+  e.preventDefault();
+  getWeather(searchValue.value);
 });
 
-window.addEventListener("load", getWeather("Ottawa"));
+searchValue.value = "Ottawa";
+getWeather("Ottawa");
