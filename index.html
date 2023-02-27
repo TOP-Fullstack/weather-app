@@ -13,6 +13,7 @@
 </head>
 <body>
 
+    <div class="loader"></div>
     <div class="main-container">
 
         <h1>The weather in <input type="text" autofocus autocomplete="off" id="search-field"> has <span class="weather-description"></span></h1>
@@ -24,20 +25,17 @@
                 <p class="weather-temperature-minmax"></p>
             </div>
             <div class="weather-stats">
-                <div class="weather-stats-wind">
-                    <!-- Wind -->
-                    <i class="fas fa-user"></i>
-                    <h2 class="weather-stats-wind-speed">43 <span>mph</span></h2>
+                <div class="weather-stats-1">
+                    <i class="fas fa-cloud-rain"></i>
+                    <h2 class="weather-stats-rain"></h2>
                 </div>
-                <div class="weather-stats-wind">
-                    <!-- Rain -->
-                    <img alt="" src="http://openweathermap.org/img/wn/10d@2x.png">
-                    <h2 class="weather-stats-wind-speed">12 <span>%</span></h2>
+                <div class="weather-stats-2">
+                    <i class="fas fa-wind"></i>
+                    <h2 class="weather-stats-wind-speed"></h2>
                 </div>
-                <div class="weather-stats-wind">
-                    <!-- Something else -->
-                    <img alt="" src="http://openweathermap.org/img/wn/10d@2x.png">
-                    <h2 class="weather-stats-wind-speed">53 <span>%</span></h2>
+                <div class="weather-stats-3">
+                    <i class="fas fa-compass"></i>
+                    <h2 class="weather-stats-wind-direction"></h2>
                 </div>
             </div>
         </div>
@@ -46,25 +44,25 @@
             <div class="forecast-day1">
                 <img alt="" src="http://openweathermap.org/img/wn/10d@2x.png">
                 <h2 class="forecast-day1-temp"><span>&#8451</span></h2>
-                <p class="forecast-day1-day">TOM</p>
+                <p class="forecast-day1-day"></p>
             </div>
             <div class="forecast-day2">
                 <img alt="" src="http://openweathermap.org/img/wn/10d@2x.png">
                 <h2 class="forecast-day2-temp"><span>&#8451</span></h2>
-                <p class="forecast-day2-day">TUES</p>
+                <p class="forecast-day2-day"></p>
             </div>
             <div class="forecast-day3">
                 <img alt="" src="http://openweathermap.org/img/wn/10d@2x.png">
                 <h2 class="forecast-day3-temp"><span>&#8451</span></h2>
-                <p class="forecast-day3-day">WED</p>
+                <p class="forecast-day3-day"></p>
             </div>
             <div class="forecast-day4">
                 <img alt="" src="http://openweathermap.org/img/wn/10d@2x.png">
-                <h2 class="forecast-day4-temp">29 <span>&#8451</span></h2>
-                <p class="forecast-day4-day">THURS</p>
+                <h2 class="forecast-day4-temp"><span>&#8451</span></h2>
+                <p class="forecast-day4-day"></p>
             </div>
         </div>
     </div>
-    <script type="module" src="scripts/main.js"></script>
+    <script type="module" src="main.js"></script>
 </body>
 </html>

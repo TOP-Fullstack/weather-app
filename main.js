@@ -1,18 +1,13 @@
 /* 
 TO-DO:
-- Get the date and put that underneath forecast days
-- Get fontawesome working
-- Get the current weather stats up
-- Add buffering icon
-- Change DOM object names: instead of dayOne, etc, make an object named dayone, name properties img,temp,day
-- Make responsive
-- Change the background when the user changes city
-- Don't call api until the search field hasn't been typed in for one second
-- Add country code next to search input so user has confirmation they're getting results from the right place
 - Re-work logic inside api call
+- Change the background when the user changes city
+- Choose nicer loading icon
+- Find a way to see when user has stopped typing for .5 seconds
 */
 
-import displayWeather from "./displayWeather.js";
+import displayWeather from "./scripts/displayWeather.js";
+import * as load from "./scripts/loading.js";
 
 const API = "a09d512a39043844e89ca915cb124b97";
 let searchValue = document.querySelector("input[type='text']");
@@ -27,16 +22,24 @@ async function getWeather(searchvalue) {
     const forecast = await response.json();
     if (forecast.cod != "404") {
       displayWeather(current, forecast);
-      console.log(current);
-      // dt_txt (date)
+      load.end();
     }
   }
 }
 
+// let count = 0;
+
+// const counterInterval = setInterval(() => {
+//   if (count >= 10) {
+//     clearInterval(counterInterval);
+//     return;
+//   }
+//   console.log(count);
+//   count++;
+// }, 1000);
+
 searchValue.addEventListener("input", (e) => {
   e.preventDefault();
+  load.start();
   getWeather(searchValue.value);
 });
-
-searchValue.value = "Ottawa";
-getWeather("Ottawa");
