@@ -12,6 +12,9 @@ export function start() {
 export function end() {
   DOM.weatherContainer.style.visibility = "visible";
   DOM.forecastContainer.style.visibility = "visible";
-  DOM.loader.style.visibility = "hidden";
   DOM.loader.style.opacity = 0;
+}
+
+export function hide() {
+  DOM.loader.style.visibility = "hidden";
 }

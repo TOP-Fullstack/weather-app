@@ -1,45 +1,56 @@
 /* 
 TO-DO:
-- Re-work logic inside api call
+- Make responsive + style a bit more
 - Change the background when the user changes city
-- Choose nicer loading icon
-- Find a way to see when user has stopped typing for .5 seconds
+- Change wording of main input line so it's grammatically correct in each instance of description
 */
 
 import displayWeather from "./scripts/displayWeather.js";
-import * as load from "./scripts/loading.js";
+import * as loader from "./scripts/loading.js";
 
 const API = "a09d512a39043844e89ca915cb124b97";
 let searchValue = document.querySelector("input[type='text']");
 
 async function getWeather(searchvalue) {
+  // Current weather API Call
   const currentURL = `https://api.openweathermap.org/data/2.5/weather?q=${searchvalue}&appid=${API}`;
   let response = await fetch(currentURL);
   const current = await response.json();
-  if (current.cod != "404") {
-    const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${current.coord.lat}&lon=${current.coord.lon}&appid=${API}`;
-    response = await fetch(forecastURL);
-    const forecast = await response.json();
-    if (forecast.cod != "404") {
-      displayWeather(current, forecast);
-      load.end();
-    }
-  }
+
+  // Forecast API Call using lat+lon from previous call
+  const forecastURL = `https://api.openweathermap.org/data/2.5/forecast?lat=${current.coord.lat}&lon=${current.coord.lon}&appid=${API}`;
+  response = await fetch(forecastURL);
+  const forecast = await response.json();
+
+  // Display waether + hide the preloader gif
+  displayWeather(current, forecast);
+  loader.end();
 }
 
-// let count = 0;
+/* Delay the API call + GIF load until .3 seconds
+after the user stops typing */
+let counter;
+function startCounter() {
+  counter = setInterval(() => {
+    if (searchValue.value !== "") {
+      loader.start();
+      getWeather(searchValue.value).catch((err) => {
+        console.log(err);
+      });
+    } else {
+      loader.hide();
+    }
+    clearInterval(counter);
+    return;
+  }, 300);
+}
 
-// const counterInterval = setInterval(() => {
-//   if (count >= 10) {
-//     clearInterval(counterInterval);
-//     return;
-//   }
-//   console.log(count);
-//   count++;
-// }, 1000);
-
+// Listen to the form input field, and start/reset the counter
+// anytime a key is pressed
 searchValue.addEventListener("input", (e) => {
   e.preventDefault();
-  load.start();
-  getWeather(searchValue.value);
+  if (counter) {
+    clearInterval(counter);
+  }
+  startCounter();
 });

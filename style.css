@@ -10,25 +10,34 @@ body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 500;
     justify-content: center;
-    color: gray;
+    color: black;
+    background: url(assets/mountainbg.jpeg) no-repeat center center;
 }
 
 /* Loading icon */
 
 .loader {
     position: fixed;
-    bottom: 0;
+    bottom: 100px;
     width: 80%;
     height: 50vh;
     z-index: 1;
     overflow: visible;
-    background: #fff url('loader.gif') no-repeat center center;
+    background: url('assets/loader.gif') no-repeat center center;
     visibility: hidden;
     transition: 0.4s;
     opacity: 0;
 }
 
 /* Input field */
+
+.main-container {
+    background: rgba(255, 255, 255, 0.205);
+    margin: 8% 0 8% 0;
+    padding: 7%;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;}
+
 
 .main-container > h1 {
     user-select: none;
@@ -44,8 +53,8 @@ input[type=text] {
     width: 120px;
     user-select: none;
     opacity: 1;
-    color: black;
-    transition: 1s;
+    /* color: white; */
+    /* transition: 1s; */
     background: transparent
 }
 
@@ -90,7 +99,7 @@ input[type=text]:focus, input[type=text]:hover  {
     margin-bottom: 0;
     font-size: 3rem;
     font-weight: 400;
-    color: black;
+    /* color: black; */
     opacity: 1;
 }
 
